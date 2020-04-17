@@ -123,6 +123,7 @@
   (ido-everywhere 1)
   (flx-ido-mode 1)
   :custom
+  (ido-save-directory-list-file (expand-file-name "ido.last" nemacs-cache-dir))
   (ido-enable-prefix nil)
   (ido-enable-flex-matching t)
   (ido-case-fold nil)
@@ -178,7 +179,12 @@
 
 (defun nemacs-after-init ()
   "After init function, run this in `after-init-hook'."
+  ;; Utils
+  (load (concat user-emacs-directory "nemacs-utils.el"))
+
   (setq gc-cons-threshold 16777216
-        gc-cons-percentage 0.1))
+        gc-cons-percentage 0.1)
+
+  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
 
 (add-hook 'after-init-hook #'nemacs-after-init)

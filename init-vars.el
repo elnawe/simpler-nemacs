@@ -33,11 +33,6 @@ Modules can be reloaded by `(nemacs-reload-module <modulename>)'
 or interactively by selecting the module. All the modules can be
 reloaded at the same time using `nemacs-reload-all-modules'.")
 
-  (defvar nemacs-elisp-dir (expand-file-name "elisp" nemacs-emacs-dir)
-    "Where the custom code lives. Usually code created
-specifically for NEMACS, but also code that cannot be downloaded
-through the Emacs package manager.")
-
   (defvar nemacs-dropbox-dir (expand-file-name "~/Dropbox/")
     "Dropbox folder in the system. Some dotfiles are shared
 across my systems through Dropbox. Notes and documents are also
@@ -53,8 +48,7 @@ up in the cloud.")
   (defvar nemacs-directories (list nemacs-local-dir
                                    nemacs-cache-dir
                                    nemacs-etc-dir
-                                   nemacs-packages-dir
-                                   nemacs-elisp-dir)
+                                   nemacs-packages-dir)
     "NEMACS directories. This is used on the initial setup.")
 
   (dolist (dir nemacs-directories)
