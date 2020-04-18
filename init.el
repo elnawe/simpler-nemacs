@@ -90,6 +90,9 @@
 (delete-selection-mode t)
 (column-number-mode t)
 
+;; Hooks
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; Package management
 (eval-and-compile
   (setq package-user-dir nemacs-packages-dir))
@@ -138,7 +141,6 @@
   :ensure nil
   :config
   (use-package company
-    :hook prog-mode
     :bind (:map company-active-map
                 ("M-p" . company-select-previous)
                 ("M-n" . company-select-next)
@@ -180,7 +182,7 @@
 (defun nemacs-after-init ()
   "After init function, run this in `after-init-hook'."
   ;; Utils
-  (load (concat user-emacs-directory "nemacs-utils.el"))
+  (load (expand-file-name "nemacs-utils.el" user-emacs-directory))
 
   (setq gc-cons-threshold 16777216
         gc-cons-percentage 0.1)

@@ -120,6 +120,7 @@ fundamental-mode) for performance sake."
 
 (global-set-key [remap split-window-below] #'nemacs-create-window-bottom-and-switch) ;; C-x 2
 
+(global-set-key (kbd "C-x k") #'nemacs-kill-current-buffer) ;; Needed by ido
 (global-set-key [remap kill-buffer] #'nemacs-kill-current-buffer) ;; C-x k
 
 (global-set-key [remap keyboard-quit] #'nemacs-escape) ;; C-g
