@@ -169,6 +169,8 @@
               ("C-c p" . projectile-command-map))
   :config
   (projectile-mode 1)
+  (add-to-list 'projectile-globally-ignored-directories ".local")
+  (add-to-list 'projectile-globally-ignored-directories "node_modules")
   :custom
   (projectile-cache-file (expand-file-name "projectile.cache" nemacs-cache-dir))
   (projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" nemacs-cache-dir)))
