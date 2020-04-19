@@ -154,12 +154,24 @@
 
   (use-package markdown-mode)
 
-  (use-package rjsx-mode
-    :custom
-    (js-indent-level 4)
-    (sgml-basic-offset 4))
+  (use-package rjsx-mode)
 
-  (use-package rust-mode))
+  (use-package rust-mode)
+  :custom
+  (js-indent-level 4)
+  (sgml-basic-offset 4))
+
+;; Projects
+(use-package projectile
+  :commands (projectile-command-map
+             projectile-find-file)
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map))
+  :config
+  (projectile-mode 1)
+  :custom
+  (projectile-cache-file (expand-file-name "projectile.cache" nemacs-cache-dir))
+  (projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" nemacs-cache-dir)))
 
 ;; Simple
 (use-package simple
