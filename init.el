@@ -121,7 +121,7 @@
 ;; TODO: Add all-the-icons, check for folder with fonts, if doesn't exist run install.
 (use-package ido
   :ensure flx-ido
-  :init
+  :config
   (ido-mode t)
   (ido-everywhere 1)
   (flx-ido-mode 1)
