@@ -157,9 +157,74 @@
   (use-package rjsx-mode)
 
   (use-package rust-mode)
+
+  (use-package typescript-mode)
   :custom
   (js-indent-level 4)
   (sgml-basic-offset 4))
+
+;; Org
+(use-package org
+  :init
+  (use-package org-bullets
+    :custom
+    (org-bullets-bullet-list '("▲" "●" "■" "✶" "◉" "○" "○"))
+    (org-bullets-face-name 'org-bullets))
+
+  (use-package org-id
+    :ensure nil)
+  :preface
+  (defvar nemacs-org-dir "~/Dropbox/Notes")
+
+  (defun nemacs-setup-org-mode ()
+    "Setups NEMACS org-mode."
+    (org-bullets-mode)
+    (org-indent-mode)
+    (turn-on-visual-line-mode)
+    (setq-local line-spacing 0.1))
+
+  (defun nemacs-org-file (filename)
+    "Expands from `nemacs-org-dir', appending `filename'."
+    (expand-file-name filename nemacs-org-dir))
+  :hook (org-mode . nemacs-setup-org-mode)
+  :bind (("C-c l" . org-store-link)
+         ("C-c c" . org-capture))
+  :custom
+    (org-archive-location (nemacs-org-file "archive.org::datetree/"))
+    (org-blank-before-new-entry '((heading . nil)
+                                     (plain-list-item . nil)))
+    (org-deadline-warning-days 7)
+    (org-default-notes-file (nemacs-org-file "inbox.org"))
+    (org-descriptive-links t)
+    (org-directory nemacs-org-dir)
+    (org-ellipsis " […]")
+    (org-fontify-done-headline t)
+    (org-fontify-whole-heading-line t)
+    (org-return-follows-link t)
+    (org-startup-folded nil)
+    (org-startup-truncated nil)
+    (org-support-shift-select 'always)
+    (org-tags-column -75)
+
+    (org-todo-keyword-faces
+     `(("TODO"     . "OrangeRed")
+       ("WAITING"  . "RoyalBlue")
+       ("DONE"     . "SeaGreen")
+       ("CANCELED" . "DarkRed")
+
+       ;; Special states
+       ("JOURNAL"  . "DarkOrange")
+       ("MEETING"  . "SlateBlue3")))
+
+    (org-log-done 'time)
+    (org-log-redeadline 'note)
+    (org-log-reschedule 'note)
+    (org-read-date-prefer-future 'time)
+
+    (org-capture-templates
+     `(("T" "Create a TODO task"
+        entry (file ,org-default-notes-file)
+        "* TODO %?"))))
 
 ;; Projects
 (use-package projectile
