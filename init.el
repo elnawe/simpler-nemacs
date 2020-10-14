@@ -160,7 +160,7 @@
 
   (use-package typescript-mode)
   :custom
-  (js-indent-level 4)
+  (js-indent-level 2)
   (sgml-basic-offset 4))
 
 ;; Org
@@ -186,9 +186,21 @@
   (defun nemacs-org-file (filename)
     "Expands from `nemacs-org-dir', appending `filename'."
     (expand-file-name filename nemacs-org-dir))
+
+  (defun nemacs-org-capture-todo ()
+    "Captures a new TODO entry. Same as `C-c c T'."
+    (interactive)
+    (org-capture :keys "T"))
+
+  (defun nemacs-org-open-inbox ()
+    "Opens the `inbox.org' file."
+    (interactive)
+    (find-file (nemacs-org-file "inbox.org")))
   :hook (org-mode . nemacs-setup-org-mode)
   :bind (("C-c l" . org-store-link)
-         ("C-c c" . org-capture))
+         ("C-c c" . org-capture)
+         ("M-n" . nemacs-org-capture-todo)
+         ("C-c i" . nemacs-org-open-inbox))
   :custom
     (org-archive-location (nemacs-org-file "archive.org::datetree/"))
     (org-blank-before-new-entry '((heading . nil)
@@ -230,10 +242,9 @@
 (use-package projectile
   :commands (projectile-command-map
              projectile-find-file)
-  :bind (:map projectile-mode-map
-              ("C-c p" . projectile-command-map))
   :config
-  (projectile-mode 1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1)
   (add-to-list 'projectile-globally-ignored-directories ".local")
   (add-to-list 'projectile-globally-ignored-directories "node_modules")
   :custom
